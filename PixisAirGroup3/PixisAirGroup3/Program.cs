@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PixisAirGroup3
+namespace PixisAirProject
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace PixisAirGroup3
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            Application.Run(new Form2());
         }
     }
 }
