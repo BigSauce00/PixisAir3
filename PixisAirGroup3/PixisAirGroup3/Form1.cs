@@ -9,104 +9,53 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
-namespace PixisAirGroup3
+namespace PixisAirProject
 {
-    public partial class FormDev1 : Form
+    public partial class Form1 : Form
     {
         SqlConnection connection;
-        string connectionString;
-        string SQL;
-        SqlDataAdapter dataAdapter;
-        DataSet dataSet;
-
-        public FormDev1()
+        SqlDataAdapter adapter;
+        public Form1()
         {
             InitializeComponent();
         }
 
+        private void customersBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.customersBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.pixisAirDataSet);
+
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            connectionString = "Data Source=v2studentpoc;Initial Catalog=PixisAir;Persist Security Info=True;User ID=Student;Password=ichooseGateway";
-            SQL = "Select * FROM dbo.Employee";
-            connection = new SqlConnection(connectionString);
-            dataAdapter = new SqlDataAdapter(SQL, connection);
-            dataSet = new DataSet();
+            this.customersTableAdapter.Fill(this.pixisAirDataSet.customers);
+
         }
 
-        private void btnReshist_Click(object sender, EventArgs e)
+        private void displayBtn_Click(object sender, EventArgs e)
         {
-            SQL = "SELECT * FROM dbo.RESHist ";
+            String connectionString = "Data Source=V2StudentPOC;Initial Catalog=PixisAir;" +
+                        "Persist Security Info=True;User ID=student;Password=ichooseGateway";
+            String SQL = "SELECT CFNAME, CLNAME FROM customers";
             try
             {
-                listBox1.Items.Clear();
-                dataSet = new DataSet();
+                connection = new SqlConnection(connectionString);
+                adapter = new SqlDataAdapter(SQL, connection);
+                DataSet data = new DataSet();
                 connection.Open();
-                dataAdapter.SelectCommand.CommandText = SQL;
-                dataAdapter.Fill(dataSet);
-                foreach (DataRow dataRow in dataSet.Tables[0].Rows)
-                    listBox1.Items.Add(dataRow[0] + ", " + dataRow[1] + ", " + dataRow[2] + ", " + dataRow[3] + ", " + dataRow[4] + ", " + dataRow[5] + ", " + dataRow[6]);
+                adapter.Fill(data);
+                displayListBox.Items.Add("First Name       Last Name");
+                displayListBox.Items.Add("----------------------------------------------");
+                foreach (DataRow dataRow in data.Tables[0].Rows)
+                    displayListBox.Items.Add(dataRow[0] + ", " + dataRow[1]);
                 connection.Close();
             }
             catch (Exception ex)
             {
-                listBox1.Items.Add(ex.Message);
-            }
-
-        }
-
-        private void btnInsert_Click(object sender, EventArgs e)
-        {
-            SQL = "INSERT INTO dbo.Cars2(Make,Model,DoorCount,ID,Color) VALUES('"+txtMake.Text+"','"+txtModel.Text+"',"+ txtDoor.Text +
-                "," + txtId.Text + ",'" + txtColor.Text + "')";
-            try
-            {
-                listBox1.Items.Clear();
-                dataSet = new DataSet();
-                connection.Open();
-                dataAdapter.SelectCommand.CommandText = SQL;
-                dataAdapter.Fill(dataSet);
-                MessageBox.Show("Record has been inserted");
-                connection.Close();
-            }
-            catch (Exception ex)
-            {
-                listBox1.Items.Add(ex.Message);
+                displayListBox.Items.Add(ex.Message);
             }
         }
-
-        private void btnCars_Click(object sender, EventArgs e)
-        {
-            SQL = "SELECT * FROM dbo.Cars2 ";
-            try
-            {
-                listBox1.Items.Clear();
-                dataSet = new DataSet();
-                connection.Open();
-                dataAdapter.SelectCommand.CommandText = SQL;
-                dataAdapter.Fill(dataSet);
-                foreach (DataRow dataRow in dataSet.Tables[0].Rows)
-                    listBox1.Items.Add(dataRow[0] + ", " + dataRow[1] + ", " + dataRow[2] + ", " + dataRow[3] + ", " + dataRow[4]);
-                connection.Close();
-            }
-            catch (Exception ex)
-            {
-                listBox1.Items.Add(ex.Message);
-            }
-        }
-
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnEscape_Click(object sender, EventArgs e)
-        {
-            FormMain fm = new FormMain();
-            FormDev1 fd1 = new FormDev1();
-            fd1.Hide();
-            fm.Show();
-        }
-       
     }
 }
