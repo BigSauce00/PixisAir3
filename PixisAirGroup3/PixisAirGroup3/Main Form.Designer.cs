@@ -49,6 +49,7 @@
             this.btnJosh1.TabIndex = 0;
             this.btnJosh1.Text = "Joshua: SQL";
             this.btnJosh1.UseVisualStyleBackColor = true;
+            this.btnJosh1.Click += new System.EventHandler(this.btnJosh1_Click);
             // 
             // btnJosh2
             // 
@@ -58,6 +59,7 @@
             this.btnJosh2.TabIndex = 1;
             this.btnJosh2.Text = "Joshua: IBM";
             this.btnJosh2.UseVisualStyleBackColor = true;
+            this.btnJosh2.Click += new System.EventHandler(this.btnJosh2_Click);
             // 
             // btnDevin1
             // 

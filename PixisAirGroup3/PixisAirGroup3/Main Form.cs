@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PixisAirProject;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,6 +24,22 @@ namespace PixisAirGroup3
             FormMain fm = new FormMain();
             fm.Hide();
             fd1.Show();
+        }
+
+        private void btnJosh1_Click(object sender, EventArgs e)
+        {
+            FormJosh1 fj1 = new FormJosh1();
+            FormMain fm = new FormMain();
+            fm.Hide();
+            fj1.Show();
+        }
+
+        private void btnJosh2_Click(object sender, EventArgs e)
+        {
+            FormJosh2 fj2 = new FormJosh2();
+            FormMain fm = new FormMain();
+            fm.Hide();
+            fj2.Show();
         }
     }
 }
